@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import requests
 import gzip
 from io import BytesIO
+import os  # Import the os module
 
 app = Flask(__name__)
 
@@ -40,9 +41,8 @@ def api():
 
         try:
             response = requests.post(api_url, json=data, headers=headers)
-            response.raise_for_status() 
+            response.raise_for_status()
 
-            
             if response.headers.get('Content-Encoding') == 'gzip':
                 try:
                     buf = BytesIO(response.content)
